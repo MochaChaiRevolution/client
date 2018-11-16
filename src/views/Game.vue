@@ -17,6 +17,9 @@
         <h1 v-if="readyState">
           You picked {{ p1 }}
         </h1>  
+        <div>
+          <img src="../assets/picts/ryu-ready.gif" width="300" height="300" style="transform: scaleX(-1)"/>
+        </div>
         <div class="row">
           <div id="scissor" class="col-md-4" v-if="!readyState || !p1 || p1 === 'scissor'">
             <a href="#" @click="select('scissor', 1)">
@@ -46,6 +49,9 @@
       <h1 v-if="readyState">
         You picked {{ p2 }}
       </h1>  
+      <div>
+        <img src="../assets/picts/ken 2-ready.gif" width="300" height="300"/>
+      </div>
         <div class="row">
           <div id="scissor" class="col-md-4" v-if="!readyState || p2 === 'scissor'">
             <a href="#" @click="select('scissor', 2)">
