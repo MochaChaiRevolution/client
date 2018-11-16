@@ -1,5 +1,10 @@
 <template>
   <div class="home">
+    <audio autoplay loop>
+      <source src="../assets/audio/otter-opop.mp3" type="audio/mpeg">
+      Your browser doesn't support audio!
+    </audio>
+    <!-- <button class="btn btn-primary btn-sm" @click.prevent="playSound('http://soundbible.com/mp3/Air Plane Ding-SoundBible.com-496729130.mp3')"><span class="fa fa-play-circle-o"></span></button> -->
     <div>
       <h2>Please join a room</h2>
     </div>
@@ -75,8 +80,16 @@ export default {
       insertName: '',
     }
   },
+  // mounted: {
+  //   playSound()
+  // },
   methods: {
-    
+    playSound (sound) {
+      if(sound) {
+        var audio = new Audio(sound);
+        audio.play();
+      }
+    }
   }
 }
 </script>
