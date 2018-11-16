@@ -10,7 +10,7 @@
       <!-- Player One -->
       <div class="col-md-6 border-right border-dark">
 
-        <button @click="addPersonToFirebase">
+        <!-- <button @click="addPersonToFirebase">
           Add some random person to db
         </button>
 
@@ -22,7 +22,7 @@
               {{ player.name }}
             </li>
           </ul>
-        </div>
+        </div> -->
 
         <h1>
           Player One Health: {{ lives.p1 }}
@@ -30,7 +30,15 @@
 
         <h1 v-if="readyState">
           You picked {{ p1 }}
-        </h1>  
+        </h1>
+
+        <div v-if="winner == 'Two' && pow" style="left: 120px; position: absolute; z-index: 1">
+          <audio autoplay>
+            <source src="../assets/audio/PUNCH.wav" type="audio/wav">
+          </audio>
+          <img src="../assets/pow.png" alt="pow" width="300px" height="300px">
+        </div>
+
         <div>
           <img src="../assets/picts/ryu-ready.gif" width="300" height="300" style="transform: scaleX(-1)"/>
         </div>
@@ -63,6 +71,14 @@
       <h1 v-if="readyState">
         You picked {{ p2 }}
       </h1>  
+
+      <div v-if="winner == 'One' && pow" style="left: 120px; position: absolute; z-index: 1">
+        <audio autoplay>
+          <source src="../assets/audio/PUNCH.wav" type="audio/wav">
+        </audio>
+        <img src="../assets/pow.png" alt="pow" width="300px" height="300px">
+      </div>
+
       <div>
         <img src="../assets/picts/ken 2-ready.gif" width="300" height="300"/>
       </div>
@@ -114,7 +130,8 @@ export default {
         p2: 3
       },
       p1id: null,
-      p2id: null
+      p2id: null,
+      pow: false
     }
   },
 
@@ -181,10 +198,13 @@ export default {
         // logic buat ngitung score
         let p1 = this.p1,
             p2 = this.p2
+
+        this.pow = true
         
         // nandain pemenang
         if (p1 === p2) {
           this.winner = "tie"
+          this.pow = false
         } else {
           if (p1 === 'scissor' && p2 === 'rock') this.winner = 'Two'
           if (p1 === 'scissor' && p2 === 'paper') this.winner = 'One'
@@ -193,6 +213,11 @@ export default {
           if (p1 === 'rock' && p2 === 'scissor') this.winner = 'One'
           if (p1 === 'rock' && p2 === 'paper') this.winner = 'Two'
         }
+
+        // pow!!!
+        setTimeout(() => {
+          this.pow = false
+        }, 500)
 
         // ngurangin nyawa
         this.calculateScore()
