@@ -10,6 +10,20 @@
       <!-- Player One -->
       <div class="col-md-6 border-right border-dark">
 
+        <button @click="addPersonToFirebase">
+          Add some random person to db
+        </button>
+
+        <div>
+          <ul>
+            <li 
+              v-for="player in players"
+              :key="player['.key']">
+              {{ player.name }}
+            </li>
+          </ul>
+        </div>
+
         <h1>
           Player One Health: {{ lives.p1 }}
         </h1>
@@ -85,6 +99,8 @@
 </template>
 
 <script>
+import { roomTest } from '../firebase';
+
 export default {
   name: 'game',
   data() {
@@ -96,8 +112,14 @@ export default {
       lives: {
         p1: 3,
         p2: 3
-      }
+      },
+      p1id: null,
+      p2id: null
     }
+  },
+
+  firebase: {
+    players: roomTest
   },
 
   methods: {
@@ -112,6 +134,36 @@ export default {
       } else {
         this.lives.p1 -= 1
       }
+    },
+
+    submitScore() {
+      // kirim ke firebase itu setiap user milih pemain mereka sendiri. Setelah dua-dua user memilih, dihitung pemenangnya siapa.
+
+      /*
+        1. User yang masuk diassign player dulu (1, 2)
+        2. Setelah dua-duanya assigned, mulai
+        3. setiap pilihan user, ditembak ke database
+      */
+    },
+
+    addPersonToFirebase() {
+      roomTest.push({ 
+        name: "P1",
+        active: false,
+        score: 0,
+        health: 3,
+        choice: null
+      })
+
+      // roomTest.push({ score: 0 })
+
+      roomTest.on("value", function(snapshot) {
+        console.log(snapshot.val());
+      }, function (errorObject) {
+        console.log("The read failed: " + errorObject.code);
+      });
+
+      roomTe
     }
   },
 
