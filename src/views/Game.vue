@@ -1,7 +1,14 @@
 <template>
   <div class="game container">
+    <!-- Soundtrack goes here! -->
+    <audio autoplay loop>
+      <source src="../assets/POL-time-attack-short.wav" type="audio/wav">
+      Your browser doesn't support audio!
+    </audio>
     <div class="row">
-      <div class="col-md-6">
+
+      <!-- Player One -->
+      <div class="col-md-6 border-right border-dark">
 
         <h1>
           Player One Health: {{ lives.p1 }}
@@ -29,6 +36,7 @@
         </div>
       </div>
 
+      <!-- Player Two -->
       <div class="col-md-6">
       
       <h1>
@@ -72,6 +80,7 @@
 
 <script>
 export default {
+  name: 'game',
   data() {
     return {
       p1: null,
