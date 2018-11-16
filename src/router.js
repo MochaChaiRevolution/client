@@ -16,13 +16,7 @@ export default new Router({
     {
       path: '/game',
       name: 'game',
-      children: [
-        {
-          path: ':id',
-          name: 'room',
-          component: () => import('./views/Game.vue')
-        }
-      ]
+      component: () => import('./views/Game.vue')
     }
 
   ]
